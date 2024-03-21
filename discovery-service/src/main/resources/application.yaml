@@ -1,0 +1,20 @@
+server:
+  port: 8761
+spring:
+  application:
+    name: discovery-service
+  security:
+    user:
+      name: eureka
+      password: password
+# Discovery
+eureka:
+  instance:
+    hostname: ${HOSTNAME:localhost}
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+management:
+  tracing:
+    sampling:
+      probability: 0

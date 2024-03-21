@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: discovery-service
+          uri: http://localhost:8761
+          predicates:
+            - Path=/discovery/web
+          filters:
+            - SetPath=/
+        - id: discovery-service-static
+          uri: http://localhost:8761
+          predicates:
+            - Path=/eureka/**
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/products
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/orders
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8181/realms/microservices-project-sample
+server:
+  port: 8080
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka:password@localhost:8761/eureka/
+management:
+  tracing:
+    sampling:
+      probability: 1.0
