@@ -25,7 +25,7 @@ public class OrderController {
     }
 
 
-    public String placeOrderFallback(OrderForm form, RuntimeException exception) {
+    public String placeOrderFallback(RuntimeException exception) {
         log.error("Place order exception {}", exception.toString());
         return "Oops something went wrong, please try later.";
     }
